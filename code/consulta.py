@@ -12,9 +12,6 @@ from folium.map import Popup, Tooltip
 import conexao
 
 
-
-    
-
 #Latitude e Longitude de onde queremos começar o mapa, no caso o escolhido foi a catedral de são Carlos 
 sc_Latitude = -22.005080902589146
 sc_Longitude = -47.88923382637606
@@ -26,6 +23,7 @@ mapa = folium.Map(
 )
 
 #Essa função é responsável pela criação de uma linha de onibus (selecionar as localizações de tal linha)
+#Recebe como parametro a linha do onibus 
 def criaLinha(linhaOnibus):
 
     connection = conexao.conexao_client()
@@ -93,8 +91,20 @@ def criaLinha(linhaOnibus):
     connection.close()
     return
 
-
 criaLinha('HAY1F47')
+
+
+#Função responsável por plotar os trajetos de onibus 
+def linhasOnibus():
+    connection = conexao.conexao_client()
+    #pegar as coordenadas das linhas e armazenar em um array? dataframe?
+
+    #encerra a conexão 
+    connection.close()
+    return 
+
+
+
 
 def trajeto():
 
@@ -170,7 +180,6 @@ def trajeto():
 
     #encerra a conexao
     connection.close()
-    #print(coordenadas)
     return 
 
 #trajeto()
