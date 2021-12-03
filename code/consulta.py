@@ -91,18 +91,65 @@ def criaLinha(linhaOnibus):
     connection.close()
     return
 
-criaLinha('HAY1F47')
-
+#criaLinha('HAY1F47')
 
 #Função responsável por plotar os trajetos de onibus 
 def linhasOnibus():
     connection = conexao.conexao_client()
+
     #pegar as coordenadas das linhas e armazenar em um array? dataframe?
+    coordenadas = pd.read_sql('select * from LOCALIZACAO', connection)
+
+    #nome ; codigo -- dataFrame que contem todas as linhas existentes no BD
+    linhas = pd.read_sql('select * from LINHA', connection)
+
+    #Latitude ; Longitude ; codigo ; ordenação(?) -- contém todas as coordenadas dos pontos por codigo da linha
+    pontosLinha = pd.read_sql('select * from PONTOS_LINHA', connection)
+    teste = pd.read_sql_query('select * from PONTO_ONIBUS', connection)
+    print(teste)
+    
+
+    print(pontosLinha)
+    
+    #df.loc[df[<some_column_name>] == <condition>, [<another_column_name>]] = <value_to_add>
+    pontosLinha.insert(3, 'NOME', 0)
+    pontosLinha.loc[pontosLinha['CODIGO'] == 'JRB160', ['NOME']] = 'Amarela'
+    pontosLinha.loc[pontosLinha['CODIGO'] == 'KLM415', ['NOME']] = 'Vermelha'
+
+    #------------- criação da Linha Amarela ----------------------
+    coord_LinhaAmarela = pontosLinha.loc[pontosLinha['NOME'] == 'Amarela'].drop(columns=['CODIGO', 'ORDENACAO', 'NOME']).values
+    inicio_LinhaAmarela = list(coord_LinhaAmarela[0])
+
+    #------------ Criacao da linha Vermelha -----------------
+    #Escolhe apenas os pontos com a linha vermelha <- pega so as coordenadas 
+    coord_LinhaVermelha = pontosLinha.loc[pontosLinha['NOME'] == 'Vermelha'].drop(columns=['CODIGO', 'ORDENACAO', 'NOME']).values
+    #marca o inicio da linha vermelha 
+    inicio_LinhaVermelha = list(coord_LinhaVermelha[0])
+
+    #-- criando grupos de linha - Conjunto de coordenadas de cada linha 
+    LinhaAmarela = folium.FeatureGroup("Linha Amarela")
+    LinhaVermelha = folium.FeatureGroup("Linha Vermelha")
+
+    linha_Onibus_Vermelha = folium.vector_layers.PolyLine(coord_LinhaVermelha, popup ='<b>Linha Vermelha<b>', pooltip="Linha Vermelha",color='red').add_to(LinhaVermelha)
+    linha_Onibus_Amarela = folium.vector_layers.PolyLine(coord_LinhaAmarela, popup='<b>Linha Amarela<b>', pooltip="Linha Amarela",color='yellow').add_to(LinhaAmarela)
+
+    folium.Marker(location=inicio_LinhaAmarela, popup='Linha Amarela', tooltip='<strong>Linha Amarela</strong>', icon=folium.Icon(color='orange', prefix='fa', icon='bus')).add_to(LinhaAmarela)
+    folium.Marker(location=inicio_LinhaVermelha, popup='Linha Vermelha', tooltip='<strong>Linha Vermelha</strong>', icon=folium.Icon(color='red', prefix='fa', icon='bus')).add_to(LinhaVermelha)
+    
+    #adicionando os componentes no mapa 
+    LinhaAmarela.add_to(mapa)
+    LinhaVermelha.add_to(mapa)
+
+    folium.LayerControl().add_to(mapa)
+
+    mapa.save("mapa-teste-linhas.html")
+    #webbrowser.open("mapa-teste-linhas.html")
 
     #encerra a conexão 
     connection.close()
     return 
 
+linhasOnibus()
 
 
 

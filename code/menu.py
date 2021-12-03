@@ -5,12 +5,24 @@ import numpy as np
 from folium import plugins
 from branca.element import Figure
 from folium.map import Popup, Tooltip
+from pandas.core.tools.datetimes import to_datetime
 
 import conexao
 from datetime import datetime
+import private 
 
+#Conexão 
+ip = 'grad.icmc.usp.br'
+port = 15215
+SID = 'orcl'
+dsn = cx_Oracle.makedsn(ip, port, SID)
+#Usuário - Senha
+username = private.username()
+password = private.password()
 
-connection = conexao.conexao_client()
+connection = cx_Oracle.connect(username, password, dsn)
+cursor = connection.cursor()
+
 logins = pd.read_sql('select Login from USUARIO', connection)
 senhas = pd.read_sql('select Login, Senha from USUARIO', connection)
 emails = pd.read_sql('select Email from USUARIO', connection)
@@ -61,37 +73,65 @@ def menu():
         print("Usuário cadastrado com sucesso")
 
 
-
     else:
         print("Ops, por favor digite um número válido")
         menu()
 
+#insere dados na tabela USUARIO 
 def insere_dados(CPF, Login, Email, Senha):
-    
-    # construct an insert statement that add a new row to the billing_headers table
-    sql = ('insert into USUARIO(CPF, Login, Email, Senha) '
-        'values(:CPF,:Login,:Email,:Senha)')
+
+    connection = cx_Oracle.connect(username, password, dsn)
+    cursor = connection.cursor()
+
+    #antes de add na tabela do usuário tem que add na tabela da pessoa 
+    add_usuario = ("INSERT INTO USUARIO (CPF, Login, Email, Senha) "
+                    'VALUES(:CPF, :Login, :Email, :Senha)')
+    dados_usuario = (CPF, Login, Email, Senha)
 
     try:
         # establish a new connection
-        with cx_Oracle.connect(conexao.username,
-                            conexao.password,
-                            conexao.dsn,
-                            encoding=conexao.encoding) as connection:
+        with cx_Oracle.connect(username,password,dsn,
+                                encoding=connection.encoding) as connection:
             # create a cursor
             with connection.cursor() as cursor:
                 # execute the insert statement
-                cursor.execute(sql, [CPF, Login, Email, Senha])
-                # commit work
+                cursor.execute(add_usuario, CPF=CPF, Login=Login, Email=Email, Senha=Senha)         #testar dessa maneira
+                # commit work  
                 connection.commit()
     except cx_Oracle.Error as error:
-        print('Error occurred:')
-        print(error)
+            print('Error occurred:')
+            print(error)
 
 
-if __name__ == '__main__':
-    insere_dados(datetime.now(), 1200, 1, None)
+#Insere dados na tabela PESSOA 
+def insere_dados_pessoa(CPF, TipoDePessoa, Nome, DataDeNasc, RG):
+
+    connection = cx_Oracle.connect(username, password, dsn)
+    cursor = connection.cursor()
+    
+     #antes de add na tabela do usuário tem que add na tabela da pessoa 
+    add_pessoa = ("""INSERT INTO PESSOA (CPF, TipoDePessoa, Nome, DataDeNasc, RG)
+                    VALUES(:CPF, :TipoDePessoa, :Nome, to_date(:DataDeNasc, 'dd/mm/yyyy'), :RG)""")
+    dados_pessoa = (CPF, TipoDePessoa, Nome, DataDeNasc, RG)
+
+    try:
+        # establish a new connection
+        with cx_Oracle.connect(username,password,dsn,
+                                encoding= connection.encoding) as connection:
+            # create a cursor
+            with connection.cursor() as cursor:
+                # execute the insert statement
+                cursor.execute(add_pessoa, dados_pessoa)
+                connection.commit()
+    except cx_Oracle.Error as error:
+            print('Error occurred:')
+            print(error)
+
+    return
 
 print("Olá bem vindo ao Busanca, o melhor aplicativo de ônibus da cidade!")
 
-menu()
+#menu()
+
+cursor.close()
+connection.close()
