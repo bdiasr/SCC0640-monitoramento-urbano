@@ -81,8 +81,8 @@ def insere_dados(CPF, Login, Email, Senha):
             # create a cursor
             with connection.cursor() as cursor:
                 # execute the insert statement
-                cursor.execute(sql, [CPF, Login, Email, Senha])
-                # commit work
+                cursor.execute(sql, CPF=CPF, Login=Login, Email=Email, Senha=Senha)         #testar dessa maneira
+                # commit work  
                 connection.commit()
     except cx_Oracle.Error as error:
         print('Error occurred:')
