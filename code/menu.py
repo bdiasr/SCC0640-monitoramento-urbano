@@ -47,7 +47,7 @@ def menu():
                 loginExistente = True
                 loginAtual = login
                 senhaLogin = senhas.loc[senhas['LOGIN'] == loginAtual]['SENHA'].values[0]
-                #print(senhaLogin)   
+ 
         if(loginExistente):
             if senha == senhaLogin:
                 print("Usuário autenticado!")

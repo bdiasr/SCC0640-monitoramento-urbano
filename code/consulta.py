@@ -10,6 +10,19 @@ from branca.element import Figure
 from folium.map import Popup, Tooltip
 
 import conexao
+import private 
+
+#Conexão 
+ip = 'grad.icmc.usp.br'
+port = 15215
+SID = 'orcl'
+dsn = cx_Oracle.makedsn(ip, port, SID)
+#Usuário - Senha
+username = private.username()
+password = private.password()
+
+connection = cx_Oracle.connect(username, password, dsn)
+cursor = connection.cursor()
 
 
 #Latitude e Longitude de onde queremos começar o mapa, no caso o escolhido foi a catedral de são Carlos 
@@ -26,19 +39,21 @@ mapa = folium.Map(
 #Recebe como parametro a linha do onibus 
 def criaLinha(linhaOnibus):
 
-    connection = conexao.conexao_client()
+    #connection = conexao.conexao_client()
     #Le o banco SQL a tabela LOCALIZACAO e transforma em um dataFrame pandas 
     coordenadas = pd.read_sql('select * from LOCALIZACAO', connection)
 
     #Armazenar os onibus em um array 
     linhaOnibus = coordenadas.loc[coordenadas['ONIBUS'] == linhaOnibus].drop(columns='ONIBUS')
-    print(linhaOnibus)
+    #print(linhaOnibus)
 
     trajetoLinha = linhaOnibus
+    trajetoLinha['DATAHORA'] = trajetoLinha['DATAHORA'].astype(str)
     #Transformar o array de coordenadas e tempo em um dataframe para que o Folium possa analisar -- Por onibus 
     trajetoLinha["Latitude anterior"] = trajetoLinha["LATITUDE"].shift()
     trajetoLinha["Longitude anterior"] = trajetoLinha["LONGITUDE"].shift()
     trajetoLinha['Hora anterior'] = trajetoLinha['DATAHORA'].shift()
+
 
     lines = []
     features = []
@@ -88,10 +103,9 @@ def criaLinha(linhaOnibus):
     webbrowser.open("mapaAplicacaoLinha.html")
 
     #encerra a conexao
-    connection.close()
+    #connection.close()
     return
 
-#criaLinha('HAY1F47')
 
 #Função responsável por plotar os trajetos de onibus 
 def linhasOnibus():
@@ -147,13 +161,11 @@ def linhasOnibus():
     connection.close()
     return 
 
-linhasOnibus()
-
-
+#linhasOnibus()
 
 def trajeto():
 
-    connection = conexao.conexao_client()
+    #connection = conexao.conexao_client()
 
     #Le o banco SQL a tabela LOCALIZACAO e transforma em um dataFrame pandas 
     coordenadas = pd.read_sql('select * from LOCALIZACAO', connection)
@@ -168,6 +180,7 @@ def trajeto():
 
     trajeto = coordenadas
 
+    trajeto['DATAHORA'] = trajeto['DATAHORA'].astype(str)
     #Transformar o array de coordenadas e tempo em um dataframe para que o Folium possa analisar -- Preciso separar os onibus 
     trajeto["Latitude anterior"] = trajeto["LATITUDE"].shift()
     trajeto["Longitude anterior"] = trajeto["LONGITUDE"].shift()
@@ -219,11 +232,70 @@ def trajeto():
         add_last_point=True).add_to(mapa)
 
     #Salvando o arquivo html e mostrando 
-    #mapa.save("mapaAplicacao.html")
-    #webbrowser.open("mapaAplicacao.html")
+    mapa.save("mapaAplicacao.html")
+    webbrowser.open("mapaAplicacao.html")
 
     #encerra a conexao
-    connection.close()
+    #connection.close()
     return 
 
-#trajeto()
+def adiciona_trajeto(Latitude, Longitude, DataHora, Onibus):
+
+    connection = cx_Oracle.connect(username, password, dsn)
+
+    #antes de add na tabela do usuário tem que add na tabela da pessoa 
+    add_onibus = ("""INSERT INTO LOCALIZACAO (Latitude, Longitude, DataHora, Onibus) 
+                    VALUES(:Latitude, :Longitude, to_timestamp(:DataHora, 'DD-MM-RR HH24:MI:SS'), :Onibus)""")
+
+    try:
+        # establish a new connection
+        with cx_Oracle.connect(username,password,dsn,
+                                encoding=connection.encoding) as connection:
+            # create a cursor
+            with connection.cursor() as cursor:
+                # execute the insert statement
+                cursor.execute(add_onibus, Latitude=Latitude, Longitude=Longitude, DataHora=DataHora, Onibus=Onibus) 
+                connection.commit()
+    except cx_Oracle.Error as error:
+            print('Error occurred:')
+            print(error)
+
+    return 
+
+#-- adicionar mais onibus pra esse trajeto 
+#adiciona_trajeto('-22.00774', '-47.892528', '04/12/2021 : 10:30:00', 'HAY1F47')
+#adiciona_trajeto('-22.007561', '-47.893105', '04/12/2021 : 10:40:00', 'HAY1F47')
+'''
+#adiciona_trajeto(-22.007220, -47.893724, '04/12/2021 : 10:50:00', 'HAY1F47')
+#adiciona_trajeto(-22.00640, -47.894864, '04/12/2021 : 11:00:00', 'HAY1F47')
+#adiciona_trajeto(-22.0061, -47.8952041, '04/12/2021 : 11:10:00', 'HAY1F47')
+adiciona_trajeto(-22.0060, -47.8955883, '04/12/2021 : 11:20:00', 'HAY1F47')
+adiciona_trajeto(-22.00575, -47.896082, '04/12/2021 : 11:30:00', 'HAY1F47')
+adiciona_trajeto(-22.00525, -47.896112, '04/12/2021 : 11:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00462, -47.896101, '04/12/2021 : 11:50:00', 'HAY1F47')
+adiciona_trajeto(-22.00375, -47.896131, '04/12/2021 : 11:60:00', 'HAY1F47')
+adiciona_trajeto(-22.00387, -47.895463, '04/12/2021 : 12:00:00', 'HAY1F47')
+adiciona_trajeto(-22.00424, -47.893971, '04/12/2021 : 12:10:00', 'HAY1F47')
+adiciona_trajeto(-22.00444, -47.893008, '04/12/2021 : 12:20:00', 'HAY1F47')
+adiciona_trajeto(-22.00443, -47.892143, '04/12/2021 : 12:30:00', 'HAY1F47')
+adiciona_trajeto(-22.00426, -47.892158, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00425, -47.892964, '04/12/2021 : 12:50:00', 'HAY1F47')
+adiciona_trajeto(-22.00405, -47.893861, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00367, -47.895157, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00336, -47.896305, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00273, -47.897609, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00237, -47.898211, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00201, -47.899007, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00201, -47.899821, '04/12/2021 : 12:40:00', 'HAY1F47')
+adiciona_trajeto(-22.00262, -47.900635, '04/12/2021 : 12:40:00', 'HAY1F47')
+'''
+
+localizacao = pd.read_sql('select * from LOCALIZACAO', connection)
+print(localizacao)
+
+criaLinha('HAY1F47')
+
+#proximo passo -- criar mais onibus e add suas localizações e escolher a linha e fazer uma interface bonitinha 
+
+cursor.close()
+connection.close()
