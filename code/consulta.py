@@ -95,6 +95,7 @@ def criaLinha(linhaOnibus):
 
 #Função responsável por plotar os trajetos de onibus 
 def linhasOnibus():
+    
     connection = conexao.conexao_client()
 
     #pegar as coordenadas das linhas e armazenar em um array? dataframe?
@@ -105,11 +106,8 @@ def linhasOnibus():
 
     #Latitude ; Longitude ; codigo ; ordenação(?) -- contém todas as coordenadas dos pontos por codigo da linha
     pontosLinha = pd.read_sql('select * from PONTOS_LINHA', connection)
-    teste = pd.read_sql_query('select * from PONTO_ONIBUS', connection)
-    print(teste)
-    
+    #teste = pd.read_sql_query('select * from PONTO_ONIBUS', connection)   
 
-    print(pontosLinha)
     
     #df.loc[df[<some_column_name>] == <condition>, [<another_column_name>]] = <value_to_add>
     pontosLinha.insert(3, 'NOME', 0)
@@ -143,7 +141,7 @@ def linhasOnibus():
     folium.LayerControl().add_to(mapa)
 
     mapa.save("mapa-teste-linhas.html")
-    #webbrowser.open("mapa-teste-linhas.html")
+    webbrowser.open("mapa-teste-linhas.html")
 
     #encerra a conexão 
     connection.close()
@@ -156,7 +154,6 @@ linhasOnibus()
 def trajeto():
 
     connection = conexao.conexao_client()
-
 
     #Le o banco SQL a tabela LOCALIZACAO e transforma em um dataFrame pandas 
     coordenadas = pd.read_sql('select * from LOCALIZACAO', connection)
