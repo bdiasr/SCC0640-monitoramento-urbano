@@ -112,7 +112,7 @@ CREATE TABLE PONTOS_LINHA(
     Ordenacao INTEGER NOT NULL,
         CONSTRAINT CK_ORDENACAO CHECK (Ordenacao > 0),
         CONSTRAINT PK_PONTOS_LINHA PRIMARY KEY (Latitude, Longitude, Codigo),
-        CONSTRAINT SK_PONTOS_LINHA UNIQUE (Ordenacao),
+        CONSTRAINT SK_PONTOS_LINHA UNIQUE (Codigo, Ordenacao),
         CONSTRAINT FK1_PONTOS_LINHA FOREIGN KEY (Latitude, Longitude)
                     REFERENCES PONTO_ONIBUS(Latitude, Longitude)
                     ON DELETE CASCADE,
