@@ -99,7 +99,6 @@ def criaLinha(linhaOnibusCodigo):
     
     lines = []
     features = []
-
     for index, row in trajetoLinha.iloc[1:].iterrows():
 
         coordinates = [
@@ -150,11 +149,6 @@ def criaLinha(linhaOnibusCodigo):
 #Função responsável por plotar os trajetos de onibus 
 def linhasOnibus():
 
-    #pegar as coordenadas das linhas e armazenar em um array? dataframe?
-    coordenadas = pd.read_sql('select * from LOCALIZACAO', connection)
-
-    #nome ; codigo -- dataFrame que contem todas as linhas existentes no BD
-    linhas = pd.read_sql('select * from LINHA', connection)
 
     #Latitude ; Longitude ; codigo ; ordenação(?) -- contém todas as coordenadas dos pontos por codigo da linha
     pontosLinha = pd.read_sql('select * from PONTOS_LINHA', connection) 
