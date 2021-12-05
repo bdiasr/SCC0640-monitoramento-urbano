@@ -173,6 +173,7 @@ def insere_dados_pessoa(CPF, TipoDePessoa, Nome, DataDeNasc, RG):
 
     return
 
+
 print("Olá bem vindo ao Busanca, o melhor aplicativo de ônibus da cidade!")
 
 menu()
