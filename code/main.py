@@ -14,8 +14,8 @@ import menu
 import conexao
 
 
-#menu.menu()
+menu.menu()
 
-#consulta.print()
-#conexao.conexao_client()
+
+
 

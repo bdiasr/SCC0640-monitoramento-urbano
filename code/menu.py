@@ -10,6 +10,7 @@ from pandas.core.tools.datetimes import to_datetime
 import conexao
 from datetime import datetime
 import private 
+import consulta
 
 #Conexão 
 ip = 'grad.icmc.usp.br'
@@ -30,7 +31,6 @@ emails = pd.read_sql('select Email from USUARIO', connection)
 cpfs = pd.read_sql('select CPF from PESSOA', connection)
 rgss = pd.read_sql('select RG from PESSOA', connection)
 
-#print(senhas)
 
 def menu():
     loginExistente = False
@@ -38,6 +38,7 @@ def menu():
     print("Escolha uma das opções abaixo")
     print("1 - Fazer login")
     print("2 - Se cadastrar")
+    
     escolha = input()
     if escolha == "1":
         usuario = input("Digite seu usuário: ")
@@ -81,6 +82,7 @@ def menu():
         nome = input("Qual é seu nome COMPLETO? ")
         nasc = input("Que dia você nasceu? (Formato: dd/mm/aaaa) : ")
         newRG = input("Digite seu RG (Formato N.NNNN.NNNN): ")
+
         for rge in rgss['RG'].values:
             if newRG == rge:
                 print("RG já cadastrado! Por favor, faça login!")
@@ -93,12 +95,31 @@ def menu():
         
         insere_dados_pessoa(newCPF, funcval, nome, nasc, newRG)
         insere_dados(newCPF, novousuario, email, novasenha)
+        loginAtual = novousuario
         print("Usuário cadastrado com sucesso")
+        usuarioautenticado = True
 
+    if usuarioautenticado:
+        print("Bem-vindo", loginAtual, "!" )
+        print("Escolha uma das opções abaixo")
+        print("1 - Visualizar as linhas de onibus em São Carlos")
+        print("2 - Verificar o trajeto de um onibus")
+        novaEscolha = input()
+        if novaEscolha == "1": 
+            print("------------------- Visualizar as linhas de onibus em São Carlos ------------------------")
+            consulta.linhasOnibus()
+        elif novaEscolha == "2":
+            print("------------------- Verificar o trajeto de um onibus ------------------------")
+            print("Digite o código do onibus a ser verificado: ")
+            onibus = input()
+            consulta.criaLinha(onibus)
 
     else:
         print("Ops, por favor digite um número válido")
         menu()
+
+    
+    
 
 #insere dados na tabela USUARIO 
 def insere_dados(CPF, Login, Email, Senha):
@@ -118,7 +139,7 @@ def insere_dados(CPF, Login, Email, Senha):
             # create a cursor
             with connection.cursor() as cursor:
                 # execute the insert statement
-                cursor.execute(add_usuario, CPF=CPF, Login=Login, Email=Email, Senha=Senha)         #testar dessa maneira
+                cursor.execute(add_usuario, CPF=CPF, Login=Login, Email=Email, Senha=Senha) 
                 # commit work  
                 connection.commit()
     except cx_Oracle.Error as error:
@@ -151,6 +172,7 @@ def insere_dados_pessoa(CPF, TipoDePessoa, Nome, DataDeNasc, RG):
             print(error)
 
     return
+
 
 print("Olá bem vindo ao Busanca, o melhor aplicativo de ônibus da cidade!")
 
