@@ -149,9 +149,6 @@ INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
             VALUES(-22.002736, -47.893084);
 
 INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
-            VALUES(-22.002736, -47.893084);
-
-INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
             VALUES(-21.999394, -47.892961);
     
 INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
@@ -170,9 +167,6 @@ INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
             VALUES(-22.003507, -47.892058);
 
 INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
-            VALUES(-22.003507, -47.892058);
-
-INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
             VALUES(-22.004979, -47.892004);
 
 INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
@@ -183,6 +177,66 @@ INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
 
 INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
             VALUES(-22.007741, -47.892528);
+            
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.017878, -47.890744);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.016811, -47.890707);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.016019, -47.890744);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.015072, -47.890725);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.015140, -47.892620);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.015158, -47.897820);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.012334, -47.897876);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.011421, -47.897894);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.011438, -47.900624);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.012334, -47.900624);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.012368, -47.899807);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.014268, -47.899783);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.014287, -47.898773);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.015190, -47.898755);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.015157, -47.895760);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.016930, -47.895715);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.016906, -47.894732);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.017900, -47.894694);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.017877, -47.893704);
+
+INSERT INTO PONTO_ONIBUS(Latitude, Longitude)
+            VALUES(-22.017883, -47.891017);
 
 -- INSERINDO PONTOS LINHA
 
@@ -223,40 +277,94 @@ INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
             VALUES(-22.002736, -47.893084,'KLM415', 12);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.002736, -47.893084,'KLM415', 13);
-
-INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-21.999394, -47.892961,'KLM415', 14);
+            VALUES(-21.999394, -47.892961,'KLM415', 13);
     
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-21.999451, -47.891554,'KLM415', 15);
+            VALUES(-21.999451, -47.891554,'KLM415', 14);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.001429, -47.891440,'KLM415', 16);
+            VALUES(-22.001429, -47.891440,'KLM415', 15);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.001374, -47.892314,'KLM415', 17);
+            VALUES(-22.001374, -47.892314,'KLM415', 16);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.003032, -47.892389,'KLM415', 18);
+            VALUES(-22.003032, -47.892389,'KLM415', 17);
         
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.003507, -47.892058,'KLM415', 19);
+            VALUES(-22.003507, -47.892058,'KLM415', 18);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.003507, -47.892058,'KLM415', 20);
+            VALUES(-22.004979, -47.892004,'KLM415', 19);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.004979, -47.892004,'KLM415', 21);
+            VALUES(-22.006279, -47.891968,'KLM415', 20);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.006279, -47.891968,'KLM415', 22);
+            VALUES(-22.007866, -47.891928,'KLM415', 21);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.007866, -47.891928,'KLM415', 23);
+            VALUES(-22.007741, -47.892528,'KLM415', 22);
+            
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.017878, -47.890744,'JRB160', 1);
 
 INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
-            VALUES(-22.007741, -47.892528,'KLM415', 24);
+            VALUES(-22.016811, -47.890707,'JRB160', 2);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.016019, -47.890744,'JRB160', 3);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.015072, -47.890725,'JRB160', 4);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.015140, -47.892620,'JRB160', 5);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.015158, -47.897820,'JRB160', 6);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.012334, -47.897876,'JRB160', 7);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.011421, -47.897894,'JRB160', 8);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.011438, -47.900624,'JRB160', 9);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.012334, -47.900624,'JRB160', 10);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.012368, -47.899807,'JRB160', 11);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.014268, -47.899783,'JRB160', 12);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.014287, -47.898773,'JRB160', 13);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.015190, -47.898755,'JRB160', 14);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.015157, -47.895760,'JRB160', 15);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.016930, -47.895715,'JRB160', 16);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.016906, -47.894732,'JRB160', 17);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.017900, -47.894694,'JRB160', 18);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.017877, -47.893704,'JRB160', 19);
+
+INSERT INTO PONTOS_LINHA(Latitude, Longitude, Codigo, Ordenacao)
+            VALUES(-22.017883, -47.891017,'JRB160', 20);
 
 -- INSERINDO ÔNIBUS 
 
@@ -330,9 +438,9 @@ INSERT INTO LOCALIZACAO(Latitude, Longitude, DataHora, Onibus)
 --INSERINDO HORARIO_PADRAO
 
 INSERT INTO HORARIO_PADRAO (Latitude,Longitude,Onibus,Hora)
-            VALUES(-22.000633,-47.895713,'OPGF47',TO_TIMESTAMP('01/01/2001 06:00:00','DD/MM/YYYY HH24:MI:SS'));
+            VALUES(-22.017878, -47.890744,'OPGF47',TO_TIMESTAMP('01/01/2001 06:00:00','DD/MM/YYYY HH24:MI:SS'));
 
 INSERT INTO HORARIO_PADRAO (Latitude,Longitude,Onibus,Hora)
-            VALUES(-21.998466,-47.894341,'HAY1F47',TO_TIMESTAMP('01/01/2001 07:00:00','DD/MM/YYYY HH24:MI:SS'));
+            VALUES(-22.00774, -47.892528,'HAY1F47',TO_TIMESTAMP('01/01/2001 07:00:00','DD/MM/YYYY HH24:MI:SS'));
 
 COMMIT;            

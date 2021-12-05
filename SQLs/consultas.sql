@@ -56,7 +56,7 @@ FROM ONIBUS O
 JOIN PONTOS_LINHA L 
 ON O.Codigo = L.Codigo
 JOIN HORARIO_PADRAO H 
-ON H.Onibus = O.Placa
+ON (H.Onibus = O.Placa AND H.Latitude = L.Latitude AND H.Longitude = L.Longitude)
 WHERE O.Codigo = 'KLM415' --Linha
 ORDER BY Latitude, Longitude, H.Hora;
 
